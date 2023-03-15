@@ -53,7 +53,7 @@ namespace ecommerce_project.Controllers
                 return BadRequest();
 
             var product = _productRepository.GetProducts()
-                .Where(p => p.Name.Trim().ToUpper() == productCreated.Name.TrimEnd().ToUpper()).FirstOrDefault();
+                .Where(p => p.Name.Trim().ToUpper() == productCreated.Name.TrimEnd().ToUpper()).SingleOrDefault();
 
             if (product != null)
             {
@@ -64,7 +64,7 @@ namespace ecommerce_project.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var productMap = _mapper.Map<Product>(productCreated);
+          //  var productMap = _mapper.Map<Product>(productCreated);
 
             if (!_productRepository.CreateProduct(productCreated))
             {
