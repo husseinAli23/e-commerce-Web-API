@@ -2,7 +2,6 @@
 using ecommerce_project.Dto;
 using ecommerce_project.Interface;
 using ecommerce_project.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecommerce_project.Controllers;
@@ -20,20 +19,26 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<User>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetUsers()
     {
         var Users = _mapper.Map<List<UserDto>>(_accountRepository.getUsers());
+        
+        if (User == null)
+            return NoContent();
 
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         return Ok(Users);
     }
 
     [HttpGet("{userId}")]
-    [ProducesResponseType(200, Type = typeof(User))]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetUser(int userId)
     {
         if (!_accountRepository.UserExistsID(userId))
@@ -48,8 +53,9 @@ public class AccountController : Controller
     }
 
     [HttpGet("{email}")]
-    [ProducesResponseType(200, Type = typeof(User))]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetUserByEmail(string email)
     {
         if (!_accountRepository.UserExistsEmail(email))
@@ -64,9 +70,9 @@ public class AccountController : Controller
     }
 
     [HttpPut("{userID}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult UpdateUser(int userID, [FromBody] UserDto updatedUser)
     {
         if (updatedUser == null)
@@ -95,9 +101,9 @@ public class AccountController : Controller
 
     [HttpPost]
     [Route("Register")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult CreateUser([FromBody] CreateUserDto newUser)
     {
         if (newUser == null)
@@ -130,16 +136,16 @@ public class AccountController : Controller
   
     [HttpPost]
     [Route("Login")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Login([FromBody] UserLoginDto _userData)
     {
         var userExists = _accountRepository.GetUserByEmail(_userData.Email);
 
         if (userExists == null)
         {
-            return BadRequest("Your email is not recorded in our system");
+            return NotFound();
         }
 
         var isPasswordMatch = _accountRepository.checkPasswordHash(_userData.Password, userExists.PasswordHash);
@@ -148,6 +154,6 @@ public class AccountController : Controller
             return BadRequest("Your email or password incorrect");
         }
 
-        return Ok("create your account seccessfully");
+        return Ok();
     }
 }

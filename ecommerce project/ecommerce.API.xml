@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ecommerce project</name>
+    </assembly>
+    <members>
+        <member name="M:ecommerce_project.Controllers.ProductController.UpdateProduct(System.Int32,ecommerce_project.Dto.ProductDto)">
+            <summaty>
+            Update a product by Id
+            </summaty>
+            <param name="productID">The id of the product to update</param>
+            <param name="updatedProduct">The updated of a product</param>
+            <returns>An IActionResult </returns>
+        </member>
+        <member name="T:ecommerce_project.Dto.ProductDto">
+            <summary>
+            A DTO a product 
+            </summary>
+        </member>
+        <member name="T:ecommerce_project.Dto.UserDto">
+            <summary>
+            A DTO for a user without a password
+            </summary>
+        </member>
+        <member name="T:ecommerce_project.Dto.UserLoginDto">
+            <summary>
+            A DTO for a login user
+            </summary>
+        </member>
+    </members>
+</doc>

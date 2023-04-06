@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ecommerce project</name>
+    </assembly>
+    <members>
+        <member name="T:ecommerce_project.Controllers.ProductController">
+            <summary>
+            A product controller
+            </summary>
+        </member>
+        <member name="M:ecommerce_project.Controllers.ProductController.GetProducts">
+            <summaty>
+            Get a list of products
+            </summaty>
+            <returns>An IActionResult </returns>
+            <response code="200">The product has successfully returned</response>
+            <response code="404">The porduct not found</response>
+        </member>
+        <member name="M:ecommerce_project.Controllers.ProductController.GetProduct(System.Int32)">
+            <summaty>
+            Get product by product id
+            </summaty>
+            <param name="productId">The id of the product to get </param>
+            <returns>An IActionResult </returns>
+            <response code="200">The product has successfully returned </response>
+            <response code="404">The porduct not found</response>
+        </member>
+        <member name="M:ecommerce_project.Controllers.ProductController.CreateProduct(ecommerce_project.Dto.CreateProductDTO)">
+            <summaty>
+            Create a new product
+            </summaty>
+            <param name="productCreated">The product object that wnat to inserted </param>
+            <returns>An IActionResult </returns>
+            <response code="200">The product has successfully created</response>
+            <response code="400">failed to create the porduct</response>
+        </member>
+        <member name="M:ecommerce_project.Controllers.ProductController.UpdateProduct(System.Int32,ecommerce_project.Dto.ProductDto)">
+            <summaty>
+            Update a product by Id
+            </summaty>
+            <param name="productID">The id of the product to update</param>
+            <param name="updatedProduct">The updated object of a product</param>
+            <returns>An IActionResult </returns>
+            <response code="200">Updated the product seccessfully</response>
+            <response code="400">failed to find the porduct</response>
+            <response code="404">The product not found in the system</response>
+        </member>
+        <member name="T:ecommerce_project.Dto.ProductDto">
+            <summary>
+            A DTO a product 
+            </summary>
+        </member>
+        <member name="T:ecommerce_project.Dto.UserDto">
+            <summary>
+            A user DTO without a password
+            </summary>
+        </member>
+        <member name="T:ecommerce_project.Dto.UserLoginDto">
+            <summary>
+            A DTO for a login user
+            </summary>
+        </member>
+    </members>
+</doc>

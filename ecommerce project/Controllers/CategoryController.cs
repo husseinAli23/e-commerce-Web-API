@@ -21,19 +21,22 @@ public class CategoryController : Controller
 
 
     [HttpGet]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<Product_category>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Product_category>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult GetCategory()
     {
-        var products = _catagoryRepository.GetCategories();
+        var Categories = _catagoryRepository.GetCategories();
 
         if (!ModelState.IsValid)
             return BadRequest();
 
-        return Ok(products);
+        return Ok(Categories);
     }
 
     [HttpGet("categoryId")]
     [ProducesResponseType(200, Type = typeof(Product))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetCategory(int categoryId)
     {
         if (!_catagoryRepository.CategoryExists(categoryId))
@@ -46,8 +49,8 @@ public class CategoryController : Controller
 
     [HttpPost]
     [Route("createCategory")]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult CreateCategory([FromBody] Product_category categoryCreated)
     {
         if (categoryCreated == null)
@@ -73,16 +76,16 @@ public class CategoryController : Controller
             return StatusCode(500, ModelState);
         }
 
-        return Ok("Successfully created");
+        return Ok();
 
 
     }
 
   
     [HttpPut("{categoryID}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult UpdateCategory(int categoryID, [FromBody] CategoryDto updatedCategory)
     {
 
@@ -106,6 +109,6 @@ public class CategoryController : Controller
             return StatusCode(500, ModelState);
         }
 
-        return Ok("Updated seccessfully");
+        return Ok();
     }
 }

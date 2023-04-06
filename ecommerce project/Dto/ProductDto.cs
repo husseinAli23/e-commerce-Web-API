@@ -1,10 +1,16 @@
 ﻿using ecommerce_project.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ecommerce_project.Dto;
 
+/// <summary>
+/// A DTO a product 
+/// </summary>
 public class ProductDto
 {
     public int Id { get; set; }
+
+    [MaxLength(120)]
     public string Name { get; set; }
     public string Details { get; set; }
     public int CategoryId { get; set; }
