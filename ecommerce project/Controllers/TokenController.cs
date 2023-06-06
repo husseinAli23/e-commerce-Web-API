@@ -1,7 +1,4 @@
-﻿using ecommerce_project.Dto;
-using ecommerce_project.Repository;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using ecommerce_project.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecommerce_project.Controllers;
